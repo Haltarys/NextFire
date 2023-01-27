@@ -1,2 +1,3 @@
 # NextFire
-A Dev.to clone.
+
+A [Dev.to](https://dev.to/) clone.
