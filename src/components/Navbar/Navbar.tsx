@@ -4,7 +4,6 @@ import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const { user, username } = { user: null, username: null };
-  console.log(styles);
 
   return (
     <nav className={styles.navbar}>
