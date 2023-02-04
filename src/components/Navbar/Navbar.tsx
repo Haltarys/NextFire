@@ -1,9 +1,11 @@
+import { UserDataContext } from '@/components/UserData';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useContext } from 'react';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
-  const { user, username } = { user: null, username: null };
+  const { user, username } = useContext(UserDataContext);
 
   return (
     <nav className={styles.navbar}>
