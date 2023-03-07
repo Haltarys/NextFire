@@ -1,4 +1,4 @@
-import { UserDataContext } from '@/components/UserData';
+import { UserDataContext } from '@/hooks/userData';
 import Link from 'next/link';
 import { useContext } from 'react';
 import styles from './Navbar.module.css';

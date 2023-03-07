@@ -1,5 +1,5 @@
 import { Navbar } from '@/components';
-import { UserDataContext, useUserData } from '@/components/UserData';
+import { UserDataContext, useUserData } from '@/hooks/userData';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <UserDataContext.Provider value={{ user, username }}>
+      <UserDataContext.Provider value={{ user: user ?? null, username }}>
         <Navbar />
         <Component {...pageProps} />
         <Toaster />

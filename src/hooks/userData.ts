@@ -5,18 +5,18 @@ import { createContext, useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 type UserData = {
-  user: User | undefined;
-  username: string | undefined;
+  user: User | null;
+  username: string | null;
 };
 
 export const UserDataContext = createContext<UserData>({
-  user: undefined,
-  username: undefined,
+  user: null,
+  username: null,
 });
 
 export function useUserData() {
   const [user] = useAuthState(auth);
-  const [username, setUsername] = useState<string | undefined>();
+  const [username, setUsername] = useState<string | null>(null);
 
   useEffect(() => {
     let unsubscribe;
@@ -25,7 +25,7 @@ export function useUserData() {
       const ref = doc(firestore, 'users', user.uid);
       unsubscribe = onSnapshot(ref, (doc) => setUsername(doc.data()?.username));
     } else {
-      setUsername(undefined);
+      setUsername(null);
     }
 
     return unsubscribe;
