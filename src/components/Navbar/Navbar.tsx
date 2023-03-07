@@ -23,6 +23,7 @@ export default function Navbar() {
             </li>
             <li>
               <Link href={`/${username}`}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={user.photoURL || ''}
                   width={50}
