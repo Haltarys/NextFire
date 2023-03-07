@@ -1,5 +1,5 @@
 import { SignInButton, SignOutButton, UsernameForm } from '@/components/login';
-import { UserDataContext } from '@/components/UserData';
+import { UserDataContext } from '@/hooks/userData';
 import { useContext } from 'react';
 
 export default function LoginPage() {

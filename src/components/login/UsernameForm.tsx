@@ -1,9 +1,9 @@
-import { useContext, useState, useEffect, useCallback, FormEvent } from 'react';
-import { UserDataContext } from '../UserData';
-import type { ChangeEvent } from 'react';
+import { UserDataContext } from '@/hooks/userData';
 import { firestore } from '@/lib/firebase';
 import { doc, getDoc, writeBatch } from 'firebase/firestore';
 import debounce from 'lodash.debounce';
+import type { ChangeEvent } from 'react';
+import { FormEvent, useCallback, useContext, useEffect, useState } from 'react';
 import UsernameMessage from './UsernameMessage';
 
 export default function UsernameForm() {
