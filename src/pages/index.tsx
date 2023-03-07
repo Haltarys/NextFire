@@ -1,28 +1,81 @@
-import Link from 'next/link';
-import { toast } from 'react-hot-toast';
+import { Loader } from '@/components';
+import PostFeed from '@/components/PostFeed/PostFeed';
+import { firestore } from '@/lib/firebase';
+import { docToJSONSerialisable } from '@/lib/helpers';
+import { Post } from '@/lib/types';
+import {
+  collectionGroup,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  startAfter,
+  Timestamp,
+  where,
+} from 'firebase/firestore';
+import { GetServerSideProps } from 'next';
+import { useState } from 'react';
 
-export default function Home() {
+const LIMIT = 1;
+
+interface HomeProps {
+  initialPosts: Post[];
+}
+
+export const getServerSideProps: GetServerSideProps<HomeProps> = async (
+  context,
+) => {
+  const postsQuery = query(
+    collectionGroup(firestore, 'posts'),
+    where('published', '==', true),
+    orderBy('createdAt', 'desc'),
+    limit(LIMIT),
+  );
+
+  const posts = (await getDocs(postsQuery)).docs.map(
+    docToJSONSerialisable,
+  ) as Post[];
+
+  return { props: { initialPosts: posts } };
+};
+
+export default function Home({ initialPosts }: HomeProps) {
+  const [posts, setPosts] = useState(initialPosts);
+  const [loading, setLoading] = useState(false);
+  const [hasReachedEnd, setHasReachedEnd] = useState(initialPosts.length < 1);
+
+  const loadMorePosts = async () => {
+    setLoading(true);
+
+    const lastPost = posts[posts.length - 1];
+    const cursor = Timestamp.fromMillis(lastPost.createdAt);
+
+    const nextPostsQuery = query(
+      collectionGroup(firestore, 'posts'),
+      where('published', '==', true),
+      orderBy('createdAt', 'desc'),
+      startAfter(cursor),
+      limit(LIMIT),
+    );
+    const nextPosts = (await getDocs(nextPostsQuery)).docs.map(
+      docToJSONSerialisable,
+    );
+
+    setPosts(posts.concat(nextPosts as Post[]));
+    setLoading(false);
+
+    if (nextPosts.length < LIMIT) setHasReachedEnd(true);
+  };
+
   return (
     <main>
-      <h1>NextFire</h1>
-      <button onClick={() => toast.success('hello there')}>Toast!!!</button>
-      <ul>
-        <li>
-          <Link href="/login">Log in</Link>
-        </li>
-        <li>
-          <Link href="/batman">Go to batman user</Link>
-        </li>
-        <li>
-          <Link href="/batman/some-post">Go to batman post</Link>
-        </li>
-        <li>
-          <Link href="/admin">Go to admin</Link>
-        </li>
-        <li>
-          <Link href="/admin/some-post">Go to admin post edit</Link>
-        </li>
-      </ul>
+      <PostFeed posts={posts} admin={false} />
+      {!loading && !hasReachedEnd && (
+        <button onClick={loadMorePosts}>Load more</button>
+      )}
+      <Loader show={loading} />
+
+      {hasReachedEnd && 'You have reached the end!'}
     </main>
   );
 }

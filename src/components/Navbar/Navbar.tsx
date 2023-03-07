@@ -26,6 +26,7 @@ export default function Navbar() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={user.photoURL || ''}
+                  referrerPolicy="no-referrer"
                   width={50}
                   height={50}
                   alt="Profile picture"
