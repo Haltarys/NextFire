@@ -1,9 +1,10 @@
-import Image from 'next/image';
+import { UserDataContext } from '@/components/UserData';
 import Link from 'next/link';
+import { useContext } from 'react';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
-  const { user, username } = { user: null, username: null };
+  const { user, username } = useContext(UserDataContext);
 
   return (
     <nav className={styles.navbar}>
@@ -13,7 +14,7 @@ export default function Navbar() {
             <button className="btn-blue">FEED</button>
           </Link>
         </li>
-        {username ? (
+        {user && username ? (
           <>
             <li>
               <Link href="/admin">
@@ -22,8 +23,9 @@ export default function Navbar() {
             </li>
             <li>
               <Link href={`/${username}`}>
-                <Image
-                  src={'/aaa'}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={user.photoURL || ''}
                   width={50}
                   height={50}
                   alt="Profile picture"
