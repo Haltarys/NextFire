@@ -1,10 +1,9 @@
-import Link from 'next/link';
+import Metatags from '@/components/Metatags/Metatags';
 
 export default function AdminPostEditPage() {
   return (
-    <div>
-      <h1>Admin post edit for slug</h1>
-      <Link href="/">Back</Link>
-    </div>
+    <main>
+      <Metatags title="Edit Post - NextFire" description="Edit your post" />
+    </main>
   );
 }

@@ -3,3 +3,4 @@ export { default as Navbar } from './Navbar/Navbar';
 export { default as PostContent } from './PostContent/PostContent';
 export { default as PostFeed } from './PostFeed/PostFeed';
 export { default as UserProfile } from './UserProfile/UserProfile';
+export { default as Metatags } from './Metatags/Metatags';
