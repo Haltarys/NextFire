@@ -24,8 +24,8 @@ export default function CreatePost() {
 
   const createPost = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const uid = auth.currentUser?.uid;
-    const ref = doc(firestore, 'users', uid!, 'posts', slug);
+    const uid = auth.currentUser!.uid;
+    const ref = doc(firestore, 'users', uid, 'posts', slug);
 
     const data: Post = {
       title,

@@ -1,4 +1,6 @@
 import { PostContent } from '@/components';
+import AuthCheck from '@/components/AuthCheck/AuthCheck';
+import HeartButton from '@/components/HeartButton/HeartButton';
 import { firestore } from '@/lib/firebase/firebase';
 import {
   docToJSONSerialisable,
@@ -13,6 +15,7 @@ import {
   query,
 } from 'firebase/firestore';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Link from 'next/link';
 import { useDocument } from 'react-firebase-hooks/firestore';
 
 interface UserPostPageProps {
@@ -70,11 +73,18 @@ export default function UserPostPage({
       <section>
         <PostContent post={post} />
       </section>
+
       <aside className="card">
         <p>
           <strong>{post.heartCount || 0} ❤️</strong>
         </p>
       </aside>
+
+      <AuthCheck
+        fallback={<Link href="/login">💔 Sign up to heart this post</Link>}
+      >
+        <HeartButton postRef={postRef} />
+      </AuthCheck>
     </main>
   );
 }
