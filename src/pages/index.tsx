@@ -33,8 +33,8 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (
   );
 
   const posts = (await getDocs(postsQuery)).docs.map(
-    docToJSONSerialisable,
-  ) as Post[];
+    docToJSONSerialisable<Post>,
+  );
 
   return { props: { initialPosts: posts } };
 };
@@ -58,10 +58,10 @@ export default function Home({ initialPosts }: HomeProps) {
       limit(LIMIT),
     );
     const nextPosts = (await getDocs(nextPostsQuery)).docs.map(
-      docToJSONSerialisable,
+      docToJSONSerialisable<Post>,
     );
 
-    setPosts(posts.concat(nextPosts as Post[]));
+    setPosts(posts.concat(nextPosts));
     setLoading(false);
 
     if (nextPosts.length < LIMIT) setHasReachedEnd(true);

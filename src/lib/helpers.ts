@@ -19,14 +19,14 @@ export async function getUserWithUsername(username: string) {
   return (await getDocs(userQuery)).docs[0];
 }
 
-export function docToJSONSerialisable(document: DocumentSnapshot) {
+export function docToJSONSerialisable<T>(document: DocumentSnapshot) {
   const data = document.data();
 
-  if (!data) return null;
+  if (!data) throw new Error('No document data');
 
   return {
     ...data,
     createdAt: data.createdAt.toMillis(),
     updatedAt: data.updatedAt.toMillis(),
-  };
+  } as T;
 }

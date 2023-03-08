@@ -13,16 +13,18 @@ import {
 } from 'firebase/firestore';
 import { GetServerSideProps } from 'next';
 
-export const getServerSideProps: GetServerSideProps = async ({
+interface UserPageProps {
+  user: User;
+  posts: Post[];
+}
+
+export const getServerSideProps: GetServerSideProps<UserPageProps> = async ({
   query: { username },
 }) => {
   const userDoc = await getUserWithUsername(username as string);
 
-  let user = null;
-  let posts = null;
-
   if (userDoc) {
-    user = userDoc.data();
+    const user = userDoc.data() as User;
 
     const postsQuery = query(
       collection(firestore, 'users', userDoc.id, 'posts'),
@@ -31,15 +33,14 @@ export const getServerSideProps: GetServerSideProps = async ({
       limit(5),
     );
 
-    posts = (await getDocs(postsQuery)).docs.map(docToJSONSerialisable);
+    const posts = (await getDocs(postsQuery)).docs.map(
+      docToJSONSerialisable<Post>,
+    );
+    return { props: { user, posts } };
+  } else {
+    return { notFound: true };
   }
-
-  return { props: { user, posts } };
 };
-interface UserPageProps {
-  user: User;
-  posts: Post[];
-}
 
 export default function UserPage({ user, posts }: UserPageProps) {
   return (
