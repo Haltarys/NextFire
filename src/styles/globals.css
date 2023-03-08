@@ -65,6 +65,42 @@ code {
   overflow-x: scroll;
 }
 
+/* Navbar */
+
+.navbar {
+  height: 70px;
+  width: 100%;
+  background: white;
+  color: var(--colors-text);
+  position: fixed;
+  top: 0;
+  padding: 0 10vw;
+  font-weight: bold;
+  border-bottom: 1px solid var(--color-gray);
+  z-index: 99;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.navbar img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.navbar li {
+  border-radius: 50%;
+}
+
 /* Buttons */
 
 .btn,
@@ -135,6 +171,53 @@ button.btn-logo {
   padding: 0.5rem 1rem;
 }
 
+/* Cards */
+
+.card {
+  padding: 2rem;
+  margin: 1rem 0;
+  background-color: white;
+  border: 1px solid var(--color-gray);
+  border-radius: 8px;
+}
+
+.card footer {
+  display: flex;
+}
+
+.card-img-center {
+  width: 20%;
+  display: block;
+  margin: auto;
+  border-radius: 50%;
+  max-width: 150px;
+}
+
+.card-info {
+  color: white;
+  background: var(--color-blue);
+}
+
+/* Loader */
+
+.loader {
+  border: 10px solid var(--color-bg);
+  border-top: 10px solid var(--color-blue);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* File uploads */
 
 input[type='file'] {
@@ -148,8 +231,11 @@ input[type='file'] {
   padding: 5px;
   margin: 5px 0;
 }
-
 /* Utilities */
+
+.push-left {
+  margin-left: auto;
+}
 
 .text-sm {
   font-size: 0.85rem;
@@ -175,10 +261,13 @@ input[type='file'] {
   justify-content: space-between;
 }
 
-.hidden {
-  display: none;
+.box-center {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  text-align: center;
 }
 
-iframe {
-  border: 0px;
+.hidden {
+  display: none;
 }

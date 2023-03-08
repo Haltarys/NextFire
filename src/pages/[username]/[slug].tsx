@@ -10,8 +10,7 @@ import {
   query,
 } from 'firebase/firestore';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import Link from 'next/link';
-import { useDocumentData } from 'react-firebase-hooks/firestore';
+import { useDocument } from 'react-firebase-hooks/firestore';
 
 interface UserPostPageProps {
   post: Post;
@@ -58,8 +57,10 @@ export default function UserPostPage({
   post: initialPost,
 }: UserPostPageProps) {
   const postRef = doc(firestore, path);
-  const [realtimePost] = useDocumentData(postRef);
-  const post = (realtimePost as Post | undefined) || initialPost;
+  const [realtimePost] = useDocument(postRef);
+  const post = realtimePost
+    ? docToJSONSerialisable<Post>(realtimePost)
+    : initialPost;
 
   return (
     <main className="container">

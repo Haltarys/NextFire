@@ -1,6 +1,5 @@
 import { Post } from '@/lib/types';
 import Link from 'next/link';
-import styles from './PostFeed.module.css';
 
 interface PostItemProps {
   post: Post;
@@ -12,21 +11,17 @@ function PostItem({ post, admin = false }: PostItemProps) {
   const minutesToRead = (wordCount / 100 + 1).toFixed(0);
 
   return (
-    <div className={styles.card}>
+    <div className="card">
       <Link href={`/${post.username}`}>
-        <a>
-          <strong>By @{post.username}</strong>
-        </a>
+        <strong>By @{post.username}</strong>
       </Link>
       <Link href={`/${post.username}/${post.slug}`}>
-        <h2>
-          <a>{post.title}</a>
-        </h2>
+        <h2>{post.title}</h2>
       </Link>
       <footer>
         <span>
           {wordCount} words. {minutesToRead} min read
-          <span className={styles['push-left']}>
+          <span className="push-left">
             ❤️ {post.heartCount < 2 ? 'heart' : 'hearts'}
           </span>
         </span>

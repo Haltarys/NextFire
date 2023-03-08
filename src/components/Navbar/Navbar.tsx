@@ -1,13 +1,12 @@
 import { UserDataContext } from '@/hooks/userData';
 import Link from 'next/link';
 import { useContext } from 'react';
-import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const { user, username } = useContext(UserDataContext);
 
   return (
-    <nav className={styles.navbar}>
+    <nav className="navbar">
       <ul>
         <li>
           <Link href="/">

@@ -9,9 +9,8 @@ import {
 import { firestore } from './firebase';
 
 export async function getUserWithUsername(username: string) {
-  const usersRef = collection(firestore, 'users');
   const userQuery = query(
-    usersRef,
+    collection(firestore, 'users'),
     where('username', '==', username),
     limit(1),
   );
@@ -19,8 +18,8 @@ export async function getUserWithUsername(username: string) {
   return (await getDocs(userQuery)).docs[0];
 }
 
-export function docToJSONSerialisable<T>(document: DocumentSnapshot) {
-  const data = document.data();
+export function docToJSONSerialisable<T>(snapshot: DocumentSnapshot) {
+  const data = snapshot.data({ serverTimestamps: 'estimate' });
 
   if (!data) throw new Error('No document data');
 

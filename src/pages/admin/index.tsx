@@ -1,10 +1,13 @@
-import Link from 'next/link';
+import { CreatePost, PostList } from '@/components/admin';
+import AuthCheck from '@/components/AuthCheck/AuthCheck';
 
 export default function AdminPage() {
   return (
-    <div>
-      <h1>Admin</h1>
-      <Link href="/">Back</Link>
-    </div>
+    <main>
+      <AuthCheck>
+        <PostList />
+        <CreatePost />
+      </AuthCheck>
+    </main>
   );
 }
