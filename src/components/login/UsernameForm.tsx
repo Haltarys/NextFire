@@ -1,5 +1,5 @@
 import { UserDataContext } from '@/hooks/userData';
-import { firestore } from '@/lib/firebase';
+import { firestore } from '@/lib/firebase/firebase';
 import { doc, getDoc, writeBatch } from 'firebase/firestore';
 import debounce from 'lodash.debounce';
 import type { ChangeEvent } from 'react';

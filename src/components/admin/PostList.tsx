@@ -1,6 +1,6 @@
 import { useUserData } from '@/hooks/userData';
-import { firestore } from '@/lib/firebase';
-import { docToJSONSerialisable } from '@/lib/helpers';
+import { firestore } from '@/lib/firebase/firebase';
+import { docToJSONSerialisable } from '@/lib/firebase/helpers';
 import { Post } from '@/lib/types';
 import { collection, orderBy, query } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';

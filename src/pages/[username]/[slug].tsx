@@ -1,6 +1,9 @@
 import { PostContent } from '@/components';
-import { firestore } from '@/lib/firebase';
-import { docToJSONSerialisable, getUserWithUsername } from '@/lib/helpers';
+import { firestore } from '@/lib/firebase/firebase';
+import {
+  docToJSONSerialisable,
+  getUserWithUsername,
+} from '@/lib/firebase/helpers';
 import { Post } from '@/lib/types';
 import {
   collectionGroup,

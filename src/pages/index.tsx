@@ -1,7 +1,7 @@
 import { Loader } from '@/components';
 import PostFeed from '@/components/PostFeed/PostFeed';
-import { firestore } from '@/lib/firebase';
-import { docToJSONSerialisable } from '@/lib/helpers';
+import { firestore } from '@/lib/firebase/firebase';
+import { docToJSONSerialisable } from '@/lib/firebase/helpers';
 import { Post } from '@/lib/types';
 import {
   collectionGroup,

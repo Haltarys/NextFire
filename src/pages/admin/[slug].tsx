@@ -1,5 +1,5 @@
 import AuthCheck from '@/components/AuthCheck/AuthCheck';
-import { auth, firestore } from '@/lib/firebase';
+import { auth, firestore } from '@/lib/firebase/firebase';
 import {
   doc,
   DocumentReference,
@@ -16,6 +16,7 @@ import { Post } from '@/lib/types';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { toast } from 'react-hot-toast';
 import Link from 'next/link';
+import { ImageUploader } from '@/components/admin';
 
 interface PostFormProps {
   postRef: DocumentReference;
@@ -52,6 +53,8 @@ function PostForm({ postRef, defaultValue, isPreviewing }: PostFormProps) {
         <ReactMarkdown>{watch('content')}</ReactMarkdown>
       </div>
       <div className={isPreviewing ? styles.hidden : styles.controls}>
+        <ImageUploader />
+
         <textarea
           defaultValue={defaultValue.content}
           {...register('content', {

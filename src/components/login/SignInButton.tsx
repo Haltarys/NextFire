@@ -1,4 +1,4 @@
-import { auth, googleAuthProvider } from '@/lib/firebase';
+import { auth, googleAuthProvider } from '@/lib/firebase/firebase';
 import { signInWithPopup } from 'firebase/auth';
 
 export default function SignInButton() {

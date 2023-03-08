@@ -1,5 +1,5 @@
 import { UserDataContext } from '@/hooks/userData';
-import { auth, firestore } from '@/lib/firebase';
+import { auth, firestore } from '@/lib/firebase/firebase';
 import { Post } from '@/lib/types';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import kebabCase from 'lodash.kebabcase';

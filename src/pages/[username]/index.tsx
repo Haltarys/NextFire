@@ -1,7 +1,10 @@
 import PostFeed from '@/components/PostFeed/PostFeed';
 import UserProfile from '@/components/UserProfile/UserProfile';
-import { firestore } from '@/lib/firebase';
-import { docToJSONSerialisable, getUserWithUsername } from '@/lib/helpers';
+import { firestore } from '@/lib/firebase/firebase';
+import {
+  docToJSONSerialisable,
+  getUserWithUsername,
+} from '@/lib/firebase/helpers';
 import { Post, User } from '@/lib/types';
 import {
   collection,
