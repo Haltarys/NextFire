@@ -6,6 +6,7 @@ export type Post = {
   title: string;
   slug: string;
   content: string;
+  published: boolean;
   heartCount: number;
   username: string;
   createdAt: number;

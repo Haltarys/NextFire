@@ -1,5 +1,6 @@
 import { UserDataContext } from '@/hooks/userData';
 import { auth, firestore } from '@/lib/firebase';
+import { Post } from '@/lib/types';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import kebabCase from 'lodash.kebabcase';
 import { useRouter } from 'next/router';
@@ -26,14 +27,16 @@ export default function CreatePost() {
     const uid = auth.currentUser?.uid;
     const ref = doc(firestore, 'users', uid!, 'posts', slug);
 
-    const data = {
+    const data: Post = {
       title,
       slug,
       uid,
       username: username!,
       published: false,
       content: '# hello world!',
+      // @ts-expect-error
       createdAt: serverTimestamp(),
+      // @ts-expect-error
       updatedAt: serverTimestamp(),
       heartCount: 0,
     };
