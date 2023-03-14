@@ -96,6 +96,17 @@ export default function Home({ initialPosts }: HomeProps) {
           </a>
           .
         </p>
+        <p>
+          You can view the source code on GitHub{' '}
+          <a
+            href="https://github.com/Haltarys/NextFire"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            here
+          </a>
+          !
+        </p>
       </div>
 
       <PostFeed posts={posts} admin={false} />
