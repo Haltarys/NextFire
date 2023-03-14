@@ -1,6 +1,6 @@
 # NextFire
 
-A [Dev.to](https://dev.to/) clone built with [Next.js 12]([url](https://nextjs.org)) and [Firebase](https://firebase.google.com/).
+A [Dev.to](https://dev.to/) clone built with [Next.js 12](https://nextjs.org) and [Firebase](https://firebase.google.com/). Demo available [here](https://next-fire-sage.vercel.app/).
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
