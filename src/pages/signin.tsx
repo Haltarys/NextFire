@@ -1,6 +1,6 @@
 import { Metatags } from '@/components';
 import { SignInButton, SignOutButton, UsernameForm } from '@/components/signin';
-import { UserDataContext } from '@/hooks/userData';
+import { UserDataContext } from '@/lib/hooks/userData';
 import { useContext } from 'react';
 
 export default function SignInPage() {

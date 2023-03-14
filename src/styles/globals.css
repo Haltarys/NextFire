@@ -38,6 +38,11 @@ a {
   cursor: pointer;
 }
 
+a[target='_blank']::after {
+  content: '🔗';
+  margin-left: 0.25rem;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -118,12 +123,16 @@ button {
   font-weight: bold;
   border-radius: 0.25rem;
   cursor: pointer;
-  margin: 0.5rem 1rem 0.5rem 0;
+  margin: 0.5rem;
+  font-size: 1rem;
 }
 
 @media only screen and (max-width: 768px) {
   button {
     padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  a {
     font-size: 0.8rem;
   }
 }
@@ -138,7 +147,8 @@ button[disabled] {
   cursor: not-allowed;
 }
 
-button.btn-blue {
+button.btn-blue,
+a.btn-blue {
   background-color: var(--color-blue);
   color: white;
 }
@@ -163,7 +173,8 @@ button.btn-google {
   margin-right: 10px;
 }
 
-button.btn-logo {
+button.btn-logo,
+a.btn-logo {
   background-color: var(--color-text);
   color: white;
   text-transform: uppercase;
@@ -179,6 +190,7 @@ button.btn-logo {
   background-color: white;
   border: 1px solid var(--color-gray);
   border-radius: 8px;
+  min-height: 300px;
 }
 
 .card footer {
@@ -270,4 +282,8 @@ input[type='file'] {
 
 .hidden {
   display: none;
+}
+
+.w-100 {
+  width: 100%;
 }

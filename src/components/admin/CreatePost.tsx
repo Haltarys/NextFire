@@ -1,4 +1,4 @@
-import { UserDataContext } from '@/hooks/userData';
+import { UserDataContext } from '@/lib/hooks/userData';
 import { auth, firestore } from '@/lib/firebase/firebase';
 import { Post } from '@/lib/types';
 import styles from '@/styles/Admin.module.css';

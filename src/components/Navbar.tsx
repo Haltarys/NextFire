@@ -1,4 +1,4 @@
-import { UserDataContext } from '@/hooks/userData';
+import { UserDataContext } from '@/lib/hooks/userData';
 import { auth } from '@/lib/firebase';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -17,21 +17,19 @@ export default function Navbar() {
     <nav className="navbar">
       <ul>
         <li>
-          <Link href="/">
-            <button className="btn-logo">NextFire</button>
+          <Link href="/" className="btn btn-logo">
+            NextFire
           </Link>
         </li>
 
         {user && username ? (
           <>
             <li className="push-left">
-              <button className="btn-blue" onClick={signOut}>
-                Sign out
-              </button>
+              <button onClick={signOut}>Sign out</button>
             </li>
             <li>
-              <Link href="/admin">
-                <button className="btn-blue">Write posts</button>
+              <Link href="/admin" className="btn btn-blue">
+                Write posts
               </Link>
             </li>
             <li>
@@ -49,8 +47,8 @@ export default function Navbar() {
           </>
         ) : (
           <li>
-            <Link href="/signin">
-              <button className="btn-blue">Log in</button>
+            <Link href="/signin" className="btn btn-blue">
+              Sign in
             </Link>
           </li>
         )}

@@ -31,8 +31,8 @@ export default function ImageUploader() {
         toast.error(`Error uploading file : ${error.name}: ${error.message}`);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then(() => {
-          setDownloadURL(downloadURL);
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setDownloadURL(url);
         });
       },
     );

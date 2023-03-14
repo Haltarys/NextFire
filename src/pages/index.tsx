@@ -16,20 +16,18 @@ import {
 import { GetServerSideProps } from 'next';
 import { useState } from 'react';
 
-const LIMIT = 1;
+const LOAD_LIMIT = 10;
 
 type HomeProps = {
   initialPosts: Post[];
 };
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async (
-  context,
-) => {
+export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const postsQuery = query(
     collectionGroup(firestore, 'posts'),
     where('published', '==', true),
     orderBy('createdAt', 'desc'),
-    limit(LIMIT),
+    limit(LOAD_LIMIT),
   );
 
   const posts = (await getDocs(postsQuery)).docs.map(
@@ -55,7 +53,7 @@ export default function Home({ initialPosts }: HomeProps) {
       where('published', '==', true),
       orderBy('createdAt', 'desc'),
       startAfter(cursor),
-      limit(LIMIT),
+      limit(LOAD_LIMIT),
     );
     const nextPosts = (await getDocs(nextPostsQuery)).docs.map(
       docToJSONSerialisable<Post>,
@@ -64,7 +62,7 @@ export default function Home({ initialPosts }: HomeProps) {
     setPosts(posts.concat(nextPosts));
     setLoading(false);
 
-    if (nextPosts.length < LIMIT) setHasReachedEnd(true);
+    if (nextPosts.length < LOAD_LIMIT) setHasReachedEnd(true);
   };
 
   return (
@@ -74,11 +72,36 @@ export default function Home({ initialPosts }: HomeProps) {
         description="See the latest posts on NextFire, a Dev.to clone build with Next 12 and Firebase."
       />
       <div className="card card-info">
-        <PostFeed posts={posts} admin={false} />
-        {!loading && !hasReachedEnd && (
-          <button onClick={loadMorePosts}>Load more</button>
-        )}
+        <h2>NextFire</h2>
+        <p>
+          A{' '}
+          <a href="https://dev.to" target="_blank" rel="noreferrer noopener">
+            Dev.to
+          </a>{' '}
+          clone built with{' '}
+          <a
+            href="https://nextjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Next.js 12
+          </a>{' '}
+          and{' '}
+          <a
+            href="https://firebase.google.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Firebase
+          </a>
+          .
+        </p>
       </div>
+
+      <PostFeed posts={posts} admin={false} />
+      {!loading && !hasReachedEnd && (
+        <button onClick={loadMorePosts}>Load more</button>
+      )}
 
       <Loader show={loading} />
 

@@ -15,6 +15,7 @@ import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import Metatags from '../Metatags';
 import ImageUploader from './ImageUploader';
 
 type PostFormProps = {
@@ -83,7 +84,7 @@ function PostForm({ postRef, defaultValue, isPreviewing }: PostFormProps) {
 
         <button
           type="submit"
-          className="btn-green"
+          className="btn-green w-100"
           disabled={!isDirty || !isValid}
         >
           Save changes
@@ -135,6 +136,10 @@ export default function PostManager() {
     <main className={styles.container}>
       {post && (
         <>
+          <Metatags
+            title={`Edit - ${post.title} - NextFire`}
+            description={`Edit your post '${post.title}'.`}
+          />
           <section>
             <h1>{post.title}</h1>
             <p>ID: {post.slug}</p>
@@ -150,8 +155,11 @@ export default function PostManager() {
             <button onClick={() => setIsPreviewing(!isPreviewing)}>
               {isPreviewing ? 'Edit' : 'Preview'}
             </button>
-            <Link href={`/${post.username}/${post.slug}`}>
-              <button className="btn-blue">Live view</button>
+            <Link
+              href={`/${post.username}/${post.slug}`}
+              className="btn btn-blue"
+            >
+              Live view
             </Link>
             <DeletePostButton postRef={postRef} />
           </aside>

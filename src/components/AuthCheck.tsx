@@ -1,4 +1,4 @@
-import { UserDataContext } from '@/hooks/userData';
+import { UserDataContext } from '@/lib/hooks/userData';
 import Link from 'next/link';
 import { useContext } from 'react';
 

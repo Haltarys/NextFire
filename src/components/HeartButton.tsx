@@ -40,8 +40,12 @@ export default function HeartButton({ postRef }: HeartButtonProps) {
   };
 
   return heartDoc?.exists() ? (
-    <button onClick={removeHeart}>💔 Unheart</button>
+    <button onClick={removeHeart} className="btn-blue w-100">
+      💔 Unheart
+    </button>
   ) : (
-    <button onClick={addHeart}>❤️ Heart</button>
+    <button onClick={addHeart} className="btn-blue w-100">
+      ❤️ Heart
+    </button>
   );
 }

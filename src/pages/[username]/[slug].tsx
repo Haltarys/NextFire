@@ -1,7 +1,7 @@
 import { Metatags, PostContent } from '@/components';
 import AuthCheck from '@/components/AuthCheck';
 import HeartButton from '@/components/HeartButton';
-import { UserDataContext } from '@/hooks/userData';
+import { UserDataContext } from '@/lib/hooks/userData';
 import { firestore } from '@/lib/firebase/firebase';
 import {
   docToJSONSerialisable,
@@ -20,6 +20,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useContext } from 'react';
 import { useDocument } from 'react-firebase-hooks/firestore';
+import HeartCount from '@/components/HeartCount';
 
 type UserPostPageProps = {
   post: Post;
@@ -74,28 +75,33 @@ export default function UserPostPage({
 
   return (
     <main className={styles.container}>
-      <Metatags title={post.title} description={post.title} />
+      <Metatags
+        title={`${post.title} - NextFire`}
+        description={`${post.title} by ${post.username} on NextFire.`}
+      />
       <section>
         <PostContent post={post} />
       </section>
 
       <aside className="card">
         <p>
-          <strong>{post.heartCount || 0} ❤️</strong>
+          <strong>
+            <HeartCount count={post.heartCount} />
+          </strong>
         </p>
+
+        <AuthCheck
+          fallback={<Link href="/signin">❤️ Sign in to heart this post</Link>}
+        >
+          <HeartButton postRef={postRef} />
+        </AuthCheck>
+
+        {user?.uid === post.uid && (
+          <Link href={`/admin/${post.slug}`} className="btn w-100">
+            Edit
+          </Link>
+        )}
       </aside>
-
-      <AuthCheck
-        fallback={<Link href="/signin">💔 Sign in to heart this post</Link>}
-      >
-        <HeartButton postRef={postRef} />
-      </AuthCheck>
-
-      {user?.uid === post.uid && (
-        <Link href={`/admin/${post.slug}`}>
-          <button className="btn">Edit</button>
-        </Link>
-      )}
     </main>
   );
 }

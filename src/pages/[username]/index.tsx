@@ -50,7 +50,7 @@ export default function UserPage({ user, posts }: UserPageProps) {
   return (
     <main>
       <Metatags
-        title={user.username}
+        title={`${user.username}'s profile - NextFire`}
         description={`${user.username}'s profile.`}
       />
       <UserProfile user={user} />

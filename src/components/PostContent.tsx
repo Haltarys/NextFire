@@ -6,8 +6,11 @@ type PostContentProps = {
   post: Post;
 };
 
+const formatter = new Intl.RelativeTimeFormat('en');
+
 export default function PostContent({ post }: PostContentProps) {
   const createdAt = new Date(post.createdAt);
+  const diff = Date.now() - createdAt.getTime();
 
   return (
     <div className="card">
@@ -16,8 +19,8 @@ export default function PostContent({ post }: PostContentProps) {
         Written by{' '}
         <Link href={`/${post.username}`} className="text-info">
           @{post.username}
-        </Link>
-        on {createdAt.toISOString()}
+        </Link>{' '}
+        {formatter.format(-Math.floor(diff / (1000 * 60 * 60 * 24)), 'days')}.
       </span>
       <ReactMarkdown>{post.content}</ReactMarkdown>
     </div>

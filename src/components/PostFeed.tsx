@@ -1,5 +1,6 @@
 import { Post } from '@/lib/types';
 import Link from 'next/link';
+import HeartCount from './HeartCount';
 
 type PostItemProps = {
   post: Post;
@@ -23,9 +24,9 @@ function PostItem({ post, admin = false }: PostItemProps) {
       <footer>
         <span>
           {wordCount} words. {minutesToRead} min read
-          <span className="push-left">
-            ❤️ {post.heartCount < 2 ? 'heart' : 'hearts'}
-          </span>
+        </span>
+        <span className="push-left">
+          <HeartCount count={post.heartCount} />
         </span>
       </footer>
 

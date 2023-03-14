@@ -1,5 +1,5 @@
 import { Navbar } from '@/components';
-import { UserDataContext, useUserData } from '@/hooks/userData';
+import { UserDataContext, useUserData } from '@/lib/hooks/userData';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
