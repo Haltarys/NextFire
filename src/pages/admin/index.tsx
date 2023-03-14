@@ -1,10 +1,18 @@
-import Link from 'next/link';
+import { Metatags } from '@/components';
+import { CreatePost, PostList } from '@/components/admin';
+import AuthCheck from '@/components/AuthCheck';
 
 export default function AdminPage() {
   return (
-    <div>
-      <h1>Admin</h1>
-      <Link href="/">Back</Link>
-    </div>
+    <main>
+      <AuthCheck>
+        <Metatags
+          title="Manage my posts - NextFire"
+          description="Manage your posts on NextFire."
+        />
+        <PostList />
+        <CreatePost />
+      </AuthCheck>
+    </main>
   );
 }

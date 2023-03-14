@@ -1,5 +1,5 @@
-import { UserDataContext } from '@/hooks/userData';
-import { firestore } from '@/lib/firebase';
+import { UserDataContext } from '@/lib/hooks/userData';
+import { firestore } from '@/lib/firebase/firebase';
 import { doc, getDoc, writeBatch } from 'firebase/firestore';
 import debounce from 'lodash.debounce';
 import type { ChangeEvent } from 'react';
@@ -39,7 +39,6 @@ export default function UsernameForm() {
       if (username.length >= 3) {
         const ref = doc(firestore, 'usernames', username);
         const usernameDoc = await getDoc(ref);
-        console.log('Firestore read executed');
 
         setIsLoading(false);
         setIsValid(!usernameDoc.exists());
@@ -84,16 +83,10 @@ export default function UsernameForm() {
           isLoading={isLoading}
           isValid={isValid}
         />
-        <button type="submit">Submit</button>
+        <button type="submit" className="btn-green">
+          Submit
+        </button>
       </form>
-      <div>
-        <h3>debug info</h3>
-        Username: {formValue}
-        <br />
-        Loading: {isLoading.toString()}
-        <br />
-        Username Valid: {isValid.toString()}
-      </div>
     </section>
   );
 }

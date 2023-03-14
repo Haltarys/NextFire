@@ -1,10 +1,10 @@
-import Link from 'next/link';
+import { PostManager } from '@/components/admin';
+import AuthCheck from '@/components/AuthCheck';
 
 export default function AdminPostEditPage() {
   return (
-    <div>
-      <h1>Admin post edit for slug</h1>
-      <Link href="/">Back</Link>
-    </div>
+    <AuthCheck>
+      <PostManager />
+    </AuthCheck>
   );
 }

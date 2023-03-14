@@ -1,31 +1,43 @@
-import { UserDataContext } from '@/hooks/userData';
+import { UserDataContext } from '@/lib/hooks/userData';
+import { auth } from '@/lib/firebase';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useContext } from 'react';
-import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const { user, username } = useContext(UserDataContext);
 
+  const router = useRouter();
+  const signOut = () => {
+    auth.signOut();
+    router.reload();
+  };
+
   return (
-    <nav className={styles.navbar}>
+    <nav className="navbar">
       <ul>
         <li>
-          <Link href="/">
-            <button className="btn-blue">FEED</button>
+          <Link href="/" className="btn btn-logo">
+            NextFire
           </Link>
         </li>
+
         {user && username ? (
           <>
+            <li className="push-left">
+              <button onClick={signOut}>Sign out</button>
+            </li>
             <li>
-              <Link href="/admin">
-                <button className="btn-blue">Write posts</button>
+              <Link href="/admin" className="btn btn-blue">
+                Write posts
               </Link>
             </li>
             <li>
               <Link href={`/${username}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={user.photoURL || ''}
+                  src={user.photoURL || '/hacker.png'}
+                  referrerPolicy="no-referrer"
                   width={50}
                   height={50}
                   alt="Profile picture"
@@ -35,8 +47,8 @@ export default function Navbar() {
           </>
         ) : (
           <li>
-            <Link href="/login">
-              <button className="btn-blue">Log in</button>
+            <Link href="/signin" className="btn btn-blue">
+              Sign in
             </Link>
           </li>
         )}

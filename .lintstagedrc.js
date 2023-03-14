@@ -6,7 +6,8 @@ const buildEslintCommand = (filenames) =>
     .join(' --file ')}`;
 
 module.exports = {
-  '*.{css,ts,tsx}': [
+  '*.css': 'yarn run prettier --write --ignore-unknown',
+  '*.{ts,tsx}': [
     'yarn run prettier --write --ignore-unknown',
     buildEslintCommand,
   ],
