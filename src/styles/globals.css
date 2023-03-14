@@ -40,7 +40,7 @@ a {
 
 a[target='_blank']::after {
   content: '🔗';
-  margin-left: 0.25rem;
+  margin-left: 0.1rem;
 }
 
 * {
