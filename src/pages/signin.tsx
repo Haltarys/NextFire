@@ -9,7 +9,7 @@ export default function SignInPage() {
   return (
     <main>
       <Metatags
-        title="Sign in"
+        title="Sign in - NextFire"
         description="Sign in to NextFire to like and write posts."
       />
       {user ? (
