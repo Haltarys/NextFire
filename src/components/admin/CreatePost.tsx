@@ -1,6 +1,7 @@
 import { UserDataContext } from '@/hooks/userData';
 import { auth, firestore } from '@/lib/firebase/firebase';
 import { Post } from '@/lib/types';
+import styles from '@/styles/Admin.module.css';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import kebabCase from 'lodash.kebabcase';
 import { useRouter } from 'next/router';
@@ -13,7 +14,7 @@ export default function CreatePost() {
   const [title, setTitle] = useState('');
   const slug = encodeURI(
     kebabCase(
-      // Remove emoji from the slug
+      // Remove emojis from the slug
       title.replace(
         /([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g,
         '',
@@ -51,8 +52,8 @@ export default function CreatePost() {
       <input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="My title"
-        className="input"
+        placeholder="Your title"
+        className={styles.input}
       />
       <p>
         <strong>Slug:</strong> {slug}

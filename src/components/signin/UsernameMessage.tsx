@@ -1,8 +1,8 @@
-interface UserMessageProps {
+type UserMessageProps = {
   isLoading: boolean;
   isValid: boolean;
   username?: string;
-}
+};
 
 export default function UsernameMessage({
   isLoading,

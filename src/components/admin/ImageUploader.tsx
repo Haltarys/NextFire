@@ -1,7 +1,8 @@
 import { auth, storage } from '@/lib/firebase';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { ChangeEvent, useState } from 'react';
-import Loader from '../Loader/Loader';
+import { toast } from 'react-hot-toast';
+import Loader from '../Loader';
 
 export default function ImageUploader() {
   const [isUploading, setIsUploading] = useState(false);
@@ -20,10 +21,20 @@ export default function ImageUploader() {
     );
 
     setIsUploading(true);
-    const uploadTask = uploadBytes(fileRef, file);
-
-    setDownloadURL(
-      await uploadTask.then((snapshot) => getDownloadURL(snapshot.ref)),
+    const uploadTask = uploadBytesResumable(fileRef, file);
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      },
+      (error) => {
+        toast.error(`Error uploading file : ${error.name}: ${error.message}`);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(() => {
+          setDownloadURL(downloadURL);
+        });
+      },
     );
     setIsUploading(false);
   };

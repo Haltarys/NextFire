@@ -1,5 +1,5 @@
-import { Loader } from '@/components';
-import PostFeed from '@/components/PostFeed/PostFeed';
+import { Loader, Metatags } from '@/components';
+import PostFeed from '@/components/PostFeed';
 import { firestore } from '@/lib/firebase/firebase';
 import { docToJSONSerialisable } from '@/lib/firebase/helpers';
 import { Post } from '@/lib/types';
@@ -18,9 +18,9 @@ import { useState } from 'react';
 
 const LIMIT = 1;
 
-interface HomeProps {
+type HomeProps = {
   initialPosts: Post[];
-}
+};
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async (
   context,
@@ -69,10 +69,17 @@ export default function Home({ initialPosts }: HomeProps) {
 
   return (
     <main>
-      <PostFeed posts={posts} admin={false} />
-      {!loading && !hasReachedEnd && (
-        <button onClick={loadMorePosts}>Load more</button>
-      )}
+      <Metatags
+        title="Latest posts - NextFire"
+        description="See the latest posts on NextFire, a Dev.to clone build with Next 12 and Firebase."
+      />
+      <div className="card card-info">
+        <PostFeed posts={posts} admin={false} />
+        {!loading && !hasReachedEnd && (
+          <button onClick={loadMorePosts}>Load more</button>
+        )}
+      </div>
+
       <Loader show={loading} />
 
       {hasReachedEnd && 'You have reached the end!'}

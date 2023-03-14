@@ -1,5 +1,6 @@
-import PostFeed from '@/components/PostFeed/PostFeed';
-import UserProfile from '@/components/UserProfile/UserProfile';
+import { Metatags } from '@/components';
+import PostFeed from '@/components/PostFeed';
+import UserProfile from '@/components/UserProfile';
 import { firestore } from '@/lib/firebase/firebase';
 import {
   docToJSONSerialisable,
@@ -16,10 +17,10 @@ import {
 } from 'firebase/firestore';
 import { GetServerSideProps } from 'next';
 
-interface UserPageProps {
+type UserPageProps = {
   user: User;
   posts: Post[];
-}
+};
 
 export const getServerSideProps: GetServerSideProps<UserPageProps> = async ({
   query: { username },
@@ -48,6 +49,10 @@ export const getServerSideProps: GetServerSideProps<UserPageProps> = async ({
 export default function UserPage({ user, posts }: UserPageProps) {
   return (
     <main>
+      <Metatags
+        title={user.username}
+        description={`${user.username}'s profile.`}
+      />
       <UserProfile user={user} />
       <PostFeed posts={posts} admin={false} />
     </main>

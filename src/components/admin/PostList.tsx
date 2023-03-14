@@ -1,16 +1,13 @@
-import { useUserData } from '@/hooks/userData';
-import { firestore } from '@/lib/firebase/firebase';
+import { auth, firestore } from '@/lib/firebase/firebase';
 import { docToJSONSerialisable } from '@/lib/firebase/helpers';
 import { Post } from '@/lib/types';
 import { collection, orderBy, query } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import PostFeed from '../PostFeed/PostFeed';
+import PostFeed from '../PostFeed';
 
 export default function PostList() {
-  const { user } = useUserData();
-
   const postsQuery = query(
-    collection(firestore, 'users', user!.uid, 'posts'),
+    collection(firestore, 'users', auth.currentUser!.uid, 'posts'),
     orderBy('createdAt'),
   );
   const [querySnapshot] = useCollection(postsQuery);

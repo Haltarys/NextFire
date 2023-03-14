@@ -1,5 +1,5 @@
 import { CreatePost, PostList } from '@/components/admin';
-import AuthCheck from '@/components/AuthCheck/AuthCheck';
+import AuthCheck from '@/components/AuthCheck';
 
 export default function AdminPage() {
   return (

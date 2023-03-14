@@ -1,11 +1,12 @@
 import { auth, googleAuthProvider } from '@/lib/firebase/firebase';
 import { signInWithPopup } from 'firebase/auth';
+import { toast } from 'react-hot-toast';
 
 export default function SignInButton() {
   const signInWithGoogle = async () => {
     await signInWithPopup(auth, googleAuthProvider)
-      .then(console.log)
-      .catch(console.error);
+      .then(() => toast.success('Signed in with Google!'))
+      .catch(() => toast.error('Error signing in with Google!'));
   };
 
   return (

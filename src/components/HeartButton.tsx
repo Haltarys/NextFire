@@ -7,9 +7,9 @@ import {
 } from 'firebase/firestore';
 import { useDocument } from 'react-firebase-hooks/firestore';
 
-interface HeartButtonProps {
+type HeartButtonProps = {
   postRef: DocumentReference;
-}
+};
 
 export default function HeartButton({ postRef }: HeartButtonProps) {
   const heartRef = doc(

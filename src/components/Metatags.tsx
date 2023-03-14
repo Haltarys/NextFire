@@ -1,10 +1,10 @@
 import Head from 'next/head';
 
-interface MetatagsProps {
+type MetatagsProps = {
   title: string;
   description: string;
   imageURL?: string;
-}
+};
 
 export default function Metatags({
   title,

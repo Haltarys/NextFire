@@ -1,12 +1,14 @@
-import { PostContent } from '@/components';
-import AuthCheck from '@/components/AuthCheck/AuthCheck';
-import HeartButton from '@/components/HeartButton/HeartButton';
+import { Metatags, PostContent } from '@/components';
+import AuthCheck from '@/components/AuthCheck';
+import HeartButton from '@/components/HeartButton';
+import { UserDataContext } from '@/hooks/userData';
 import { firestore } from '@/lib/firebase/firebase';
 import {
   docToJSONSerialisable,
   getUserWithUsername,
 } from '@/lib/firebase/helpers';
 import { Post } from '@/lib/types';
+import styles from '@/styles/Post.module.css';
 import {
   collectionGroup,
   doc,
@@ -16,12 +18,13 @@ import {
 } from 'firebase/firestore';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
+import { useContext } from 'react';
 import { useDocument } from 'react-firebase-hooks/firestore';
 
-interface UserPostPageProps {
+type UserPostPageProps = {
   post: Post;
   path: string;
-}
+};
 
 type UserPostPageParams = {
   username: string;
@@ -67,9 +70,11 @@ export default function UserPostPage({
   const post = realtimePost
     ? docToJSONSerialisable<Post>(realtimePost)
     : initialPost;
+  const { user } = useContext(UserDataContext);
 
   return (
-    <main className="container">
+    <main className={styles.container}>
+      <Metatags title={post.title} description={post.title} />
       <section>
         <PostContent post={post} />
       </section>
@@ -81,10 +86,16 @@ export default function UserPostPage({
       </aside>
 
       <AuthCheck
-        fallback={<Link href="/login">💔 Sign up to heart this post</Link>}
+        fallback={<Link href="/signin">💔 Sign in to heart this post</Link>}
       >
         <HeartButton postRef={postRef} />
       </AuthCheck>
+
+      {user?.uid === post.uid && (
+        <Link href={`/admin/${post.slug}`}>
+          <button className="btn">Edit</button>
+        </Link>
+      )}
     </main>
   );
 }

@@ -12,7 +12,10 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>NextFire</title>
-        <meta name="description" content="A Dev.to clone." />
+        <meta
+          name="description"
+          content="A a Dev.to clone build with Next 12 and Firebase."
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
       </Head>
