@@ -2,7 +2,7 @@ import { Metatags, PostContent } from '@/components';
 import AuthCheck from '@/components/AuthCheck';
 import HeartButton from '@/components/HeartButton';
 import { UserDataContext } from '@/lib/hooks/userData';
-import { firestore } from '@/lib/firebase/firebase';
+import { db } from '@/lib/firebase/firebase';
 import {
   docToJSONSerialisable,
   getUserWithUsername,
@@ -41,7 +41,7 @@ export const getStaticProps: GetStaticProps<
   const { username, slug } = params!;
   const userDoc = await getUserWithUsername(username);
 
-  const postRef = doc(firestore, 'users', userDoc.id, 'posts', slug);
+  const postRef = doc(db, 'users', userDoc.id, 'posts', slug);
   const post = docToJSONSerialisable<Post>(await getDoc(postRef));
 
   return {
@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps<
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const snapshot = await getDocs(query(collectionGroup(firestore, 'posts')));
+  const snapshot = await getDocs(query(collectionGroup(db, 'posts')));
   const paths = snapshot.docs.map((doc) => {
     const { username, slug } = doc.data();
 
@@ -66,7 +66,7 @@ export default function UserPostPage({
   path,
   post: initialPost,
 }: UserPostPageProps) {
-  const postRef = doc(firestore, path);
+  const postRef = doc(db, path);
   const [realtimePost] = useDocument(postRef);
   const post = realtimePost
     ? docToJSONSerialisable<Post>(realtimePost)

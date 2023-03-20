@@ -1,4 +1,4 @@
-import { auth, firestore } from '@/lib/firebase/firebase';
+import { auth, db } from '@/lib/firebase/firebase';
 import { Post } from '@/lib/types';
 import styles from '@/styles/Admin.module.css';
 import {
@@ -124,7 +124,7 @@ export default function PostManager() {
   const [isPreviewing, setIsPreviewing] = useState(false);
 
   const postRef = doc(
-    firestore,
+    db,
     'users',
     auth.currentUser!.uid,
     'posts',

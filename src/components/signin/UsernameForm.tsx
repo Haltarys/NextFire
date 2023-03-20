@@ -1,5 +1,5 @@
 import { UserDataContext } from '@/lib/hooks/userData';
-import { firestore } from '@/lib/firebase/firebase';
+import { db } from '@/lib/firebase/firebase';
 import { doc, getDoc, writeBatch } from 'firebase/firestore';
 import debounce from 'lodash.debounce';
 import type { ChangeEvent } from 'react';
@@ -37,7 +37,7 @@ export default function UsernameForm() {
   const checkUsername = useCallback(
     debounce(async (username: string) => {
       if (username.length >= 3) {
-        const ref = doc(firestore, 'usernames', username);
+        const ref = doc(db, 'usernames', username);
         const usernameDoc = await getDoc(ref);
 
         setIsLoading(false);
@@ -54,10 +54,10 @@ export default function UsernameForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const userRef = doc(firestore, 'users', user!.uid);
-    const usernameRef = doc(firestore, 'usernames', formValue);
+    const userRef = doc(db, 'users', user!.uid);
+    const usernameRef = doc(db, 'usernames', formValue);
 
-    const batch = writeBatch(firestore);
+    const batch = writeBatch(db);
     batch.set(userRef, {
       username: formValue,
       photoURL: user?.photoURL,

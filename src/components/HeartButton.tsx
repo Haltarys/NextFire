@@ -1,4 +1,4 @@
-import { auth, firestore } from '@/lib/firebase';
+import { auth, db } from '@/lib/firebase';
 import {
   doc,
   DocumentReference,
@@ -12,18 +12,13 @@ type HeartButtonProps = {
 };
 
 export default function HeartButton({ postRef }: HeartButtonProps) {
-  const heartRef = doc(
-    firestore,
-    postRef.path,
-    'hearts',
-    auth.currentUser!.uid,
-  );
+  const heartRef = doc(db, postRef.path, 'hearts', auth.currentUser!.uid);
   const [heartDoc] = useDocument(heartRef);
 
   const addHeart = async () => {
     const uid = auth.currentUser!.uid;
 
-    const batch = writeBatch(firestore);
+    const batch = writeBatch(db);
     batch.update(postRef, { heartCount: increment(1) });
     batch.set(heartRef, { uid });
 
@@ -31,7 +26,7 @@ export default function HeartButton({ postRef }: HeartButtonProps) {
   };
 
   const removeHeart = async () => {
-    const batch = writeBatch(firestore);
+    const batch = writeBatch(db);
 
     batch.update(postRef, { heartCount: increment(-1) });
     batch.delete(heartRef);

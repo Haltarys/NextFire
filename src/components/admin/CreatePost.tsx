@@ -1,5 +1,5 @@
 import { UserDataContext } from '@/lib/hooks/userData';
-import { auth, firestore } from '@/lib/firebase/firebase';
+import { auth, db } from '@/lib/firebase/firebase';
 import { Post } from '@/lib/types';
 import styles from '@/styles/Admin.module.css';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
@@ -26,7 +26,7 @@ export default function CreatePost() {
   const createPost = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const uid = auth.currentUser!.uid;
-    const ref = doc(firestore, 'users', uid, 'posts', slug);
+    const ref = doc(db, 'users', uid, 'posts', slug);
 
     const data: Post = {
       title,

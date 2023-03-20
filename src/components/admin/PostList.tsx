@@ -1,4 +1,4 @@
-import { auth, firestore } from '@/lib/firebase/firebase';
+import { auth, db } from '@/lib/firebase/firebase';
 import { docToJSONSerialisable } from '@/lib/firebase/helpers';
 import { Post } from '@/lib/types';
 import { collection, orderBy, query } from 'firebase/firestore';
@@ -7,7 +7,7 @@ import PostFeed from '../PostFeed';
 
 export default function PostList() {
   const postsQuery = query(
-    collection(firestore, 'users', auth.currentUser!.uid, 'posts'),
+    collection(db, 'users', auth.currentUser!.uid, 'posts'),
     orderBy('createdAt'),
   );
   const [querySnapshot] = useCollection(postsQuery);
