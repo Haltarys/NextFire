@@ -6,11 +6,11 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import { firestore } from './firebase';
+import { db } from './firebase';
 
 export async function getUserWithUsername(username: string) {
   const userQuery = query(
-    collection(firestore, 'users'),
+    collection(db, 'users'),
     where('username', '==', username),
     limit(1),
   );

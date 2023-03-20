@@ -1,6 +1,6 @@
 import { Loader, Metatags } from '@/components';
 import PostFeed from '@/components/PostFeed';
-import { firestore } from '@/lib/firebase/firebase';
+import { db } from '@/lib/firebase/firebase';
 import { docToJSONSerialisable } from '@/lib/firebase/helpers';
 import { Post } from '@/lib/types';
 import {
@@ -24,7 +24,7 @@ type HomeProps = {
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const postsQuery = query(
-    collectionGroup(firestore, 'posts'),
+    collectionGroup(db, 'posts'),
     where('published', '==', true),
     orderBy('createdAt', 'desc'),
     limit(LOAD_LIMIT),
@@ -49,7 +49,7 @@ export default function Home({ initialPosts }: HomeProps) {
     const cursor = Timestamp.fromMillis(lastPost.createdAt);
 
     const nextPostsQuery = query(
-      collectionGroup(firestore, 'posts'),
+      collectionGroup(db, 'posts'),
       where('published', '==', true),
       orderBy('createdAt', 'desc'),
       startAfter(cursor),

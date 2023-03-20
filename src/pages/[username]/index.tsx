@@ -1,7 +1,7 @@
 import { Metatags } from '@/components';
 import PostFeed from '@/components/PostFeed';
 import UserProfile from '@/components/UserProfile';
-import { firestore } from '@/lib/firebase/firebase';
+import { db } from '@/lib/firebase/firebase';
 import {
   docToJSONSerialisable,
   getUserWithUsername,
@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps<UserPageProps> = async ({
     const user = userDoc.data() as User;
 
     const postsQuery = query(
-      collection(firestore, 'users', userDoc.id, 'posts'),
+      collection(db, 'users', userDoc.id, 'posts'),
       where('published', '==', true),
       orderBy('createdAt', 'desc'),
       limit(5),
