@@ -1,0 +1,18 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /uploads/{userId}/{allPaths=**} {
+    	allow write: if request.auth.uid == userId && request.resource.contentType.matches('image/.*');
+
+      allow read: if postIsPublished(resource.metadata.ownerPostPath) || ownsPost(resource.metadata.ownerPostPath);
+    }
+
+    function postIsPublished(path) {
+    	return get(path).published == true;
+    }
+
+    function ownsPost(path) {
+    	return get(path).uid == request.auth.uid;
+    }
+  }
+}

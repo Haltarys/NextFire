@@ -4,7 +4,11 @@ import { ChangeEvent, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Loader from '../Loader';
 
-export default function ImageUploader() {
+type ImageUploaderProps = {
+  ownerPostPath: string;
+};
+
+export default function ImageUploader({ ownerPostPath }: ImageUploaderProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [downloadURL, setDownloadURL] = useState<string | null>(null);
@@ -21,7 +25,10 @@ export default function ImageUploader() {
     );
 
     setIsUploading(true);
-    const uploadTask = uploadBytesResumable(fileRef, file);
+    const uploadTask = uploadBytesResumable(fileRef, file, {
+      contentType: file.type,
+      customMetadata: { ownerPostPath },
+    });
     uploadTask.on(
       'state_changed',
       (snapshot) => {
