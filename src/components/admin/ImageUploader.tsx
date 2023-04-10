@@ -38,11 +38,9 @@ export default function ImageUploader({ ownerPostPath }: ImageUploaderProps) {
         toast.error(`Error uploading file : ${error.name}: ${error.message}`);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref)
-          .then((url) => {
-            setDownloadURL(url);
-          })
-          .catch(console.error);
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setDownloadURL(url);
+        });
       },
     );
     setIsUploading(false);
