@@ -57,7 +57,7 @@ function PostForm({ postRef, defaultValue, isPreviewing }: PostFormProps) {
         <ReactMarkdown>{watch('content')}</ReactMarkdown>
       </div>
       <div className={isPreviewing ? styles.hidden : styles.controls}>
-        <ImageUploader ownerPostPath={postRef.path} />
+        <ImageUploader postId={postRef.id} />
 
         <textarea
           defaultValue={defaultValue.content}

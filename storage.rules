@@ -1,18 +1,20 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
-    match /uploads/{userId}/{allPaths=**} {
-    	allow write: if request.auth.uid == userId && request.resource.contentType.matches('image/.*');
+    match /uploads/{userId}/posts/{postId}/{allPaths=**} {
+      allow write: if request.auth.uid == userId && request.resource.contentType.matches('image/.*');
 
-      allow read: if postIsPublished(resource.metadata.ownerPostPath) || ownsPost(resource.metadata.ownerPostPath);
+      allow read: if postIsPublished(userId, postId) || ownsPost(userId, postId);
     }
 
-    function postIsPublished(path) {
-    	return get(path).published == true;
+    function postIsPublished(userId, postId) {
+      let post = firestore.get(/databases/(default)/documents/users/$(userId)/posts/$(postId));
+      return post != null && post.data.published == true;
     }
 
-    function ownsPost(path) {
-    	return get(path).uid == request.auth.uid;
+    function ownsPost(userId, postId) {
+      let post = firestore.get(/databases/(default)/documents/users/$(userId)/posts/$(postId));
+      return post != null && post.data.uid == request.auth.uid;
     }
   }
 }
