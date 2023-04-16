@@ -18,14 +18,14 @@ service cloud.firestore {
       }
 
       match /users/{userId}/posts/{postId} {
-        allow read;
+        allow read: if request.auth.uid == userId || resource.data.published == true;
         allow create: if canCreatePost(userId);
         allow update: if canUpdatePost(userId) || canIncrementHearts(userId, postId);
         allow delete: if request.auth.uid == userId;
       }
 
       match /users/{userId}/posts/{postId}/hearts/{heartId} {
-        allow read;
+        allow read: if request.auth.uid == userId || resource.data.published == true;
         allow write: if request.auth.uid == heartId;
       }
 
