@@ -8,11 +8,11 @@ type AuthCheckProps = {
 };
 
 export default function AuthCheck({ children, fallback }: AuthCheckProps) {
-  const { username } = useContext(UserDataContext);
+  const { user, username } = useContext(UserDataContext);
 
   return (
     <>
-      {username
+      {user && username
         ? children
         : fallback ?? (
             <Link href="/signin">You must be signed in to view this page.</Link>
