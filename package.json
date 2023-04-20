@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "emulator": "firebase emulators:start --import=./.firebase_cache --export-on-exit",
     "format": "prettier --write src/**/*.{ts,tsx,css}",
     "lint": "next lint",
     "prepare": "husky install"
@@ -15,8 +16,8 @@
     "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
     "eslint": "8.38.0",
-    "eslint-config-next": "13.3.0",
     "firebase": "^9.19.1",
+    "eslint-config-next": "13.3.0",
     "lodash.debounce": "^4.0.8",
     "lodash.kebabcase": "^4.1.1",
     "next": "13.3.0",
