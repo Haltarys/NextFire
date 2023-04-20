@@ -9,7 +9,7 @@ export default function UserProfile({ user }: UserProfileProps) {
     <div className="box-center">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={user.photoURL || '/hacker.png'}
+        src={user.photoURL || '/user.png'}
         alt="Profile picture"
         referrerPolicy="no-referrer"
         className="card-img-center"

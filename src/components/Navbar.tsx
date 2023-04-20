@@ -36,7 +36,7 @@ export default function Navbar() {
               <Link href={`/${username}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={user.photoURL || '/hacker.png'}
+                  src={user.photoURL || '/user.png'}
                   referrerPolicy="no-referrer"
                   width={50}
                   height={50}
