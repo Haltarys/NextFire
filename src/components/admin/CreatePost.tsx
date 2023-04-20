@@ -42,6 +42,7 @@ export default function CreatePost() {
       heartCount: 0,
     };
 
+    setTitle('');
     await setDoc(ref, data);
     toast.success('Post created!');
     router.push(`/admin/${slug}`);
