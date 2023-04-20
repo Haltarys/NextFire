@@ -5,10 +5,10 @@ import { toast } from 'react-hot-toast';
 import Loader from '../Loader';
 
 type ImageUploaderProps = {
-  ownerPostPath: string;
+  postId: string;
 };
 
-export default function ImageUploader({ ownerPostPath }: ImageUploaderProps) {
+export default function ImageUploader({ postId }: ImageUploaderProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [downloadURL, setDownloadURL] = useState<string | null>(null);
@@ -21,13 +21,14 @@ export default function ImageUploader({ ownerPostPath }: ImageUploaderProps) {
     const extension = file.type.split('/')[1];
     const fileRef = ref(
       storage,
-      `uploads/${auth.currentUser?.uid}/${Date.now()}.${extension}`,
+      `uploads/${
+        auth.currentUser?.uid
+      }/posts/${postId}/${Date.now()}.${extension}`,
     );
 
     setIsUploading(true);
     const uploadTask = uploadBytesResumable(fileRef, file, {
       contentType: file.type,
-      customMetadata: { ownerPostPath },
     });
     uploadTask.on(
       'state_changed',
