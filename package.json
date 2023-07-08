@@ -2,6 +2,22 @@
   "name": "nextfire",
   "version": "1.2.0",
   "private": true,
+  "author": "Haltarys",
+  "description": "A Dev.to clone built with Next.js 12 and Firebase.",
+  "keywords": [
+    "nextjs",
+    "firebase",
+    "react",
+    "typescript",
+    "dev.to",
+    "devto"
+  ],
+  "homepage": "https://next-fire-sage.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Haltarys/NextFire.git"
+  },
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
