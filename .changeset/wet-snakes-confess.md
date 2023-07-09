@@ -1,0 +1,5 @@
+---
+'nextfire': minor
+---
+
+setup changesets

@@ -25,6 +25,7 @@
     "emulator": "firebase emulators:start --import=./.firebase_cache --export-on-exit",
     "format": "prettier --write src/**/*.{ts,tsx,css}",
     "lint": "next lint",
+    "changeset": "changeset",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -46,6 +47,7 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@commitlint/cli": "^17.6.6",
     "@commitlint/config-conventional": "^17.6.6",
     "@types/lodash.debounce": "^4.0.7",
